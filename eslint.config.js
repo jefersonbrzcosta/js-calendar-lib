@@ -1,36 +1,38 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { resolve } from 'path'
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+import js from '@eslint/js';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
 
-export default tseslint.config(
-  { ignores: ['dist'] },
+// Resolve __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Flat config for ESLint
+export default [
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+    ignores: ['dist'],  // Ignore dist folder
+  },
+  js.configs.recommended,  // JavaScript recommended rules
+  {
+    files: ['**/*.{ts,tsx}'],  // Apply to TypeScript files
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 'latest',  // ECMAScript latest version
+      sourceType: 'module',  // Use ES modules
     },
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-    },
-    settings: {
-      'import/resolver': {
-        typescript: {
-          project: resolve(__dirname, 'tsconfig.json'),
-        },
-      },
+      'prettier': {}, // Add Prettier plugin
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      'prettier/prettier': 'error', // Enable Prettier errors
+      'max-len': ['error', { code: 60, tabWidth: 2, ignoreComments: true }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
     },
   },
-)
+];

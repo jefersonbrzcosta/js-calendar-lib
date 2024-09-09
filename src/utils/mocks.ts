@@ -1,42 +1,62 @@
+import { CalendarState } from "../types/calendar-context";
+
 export const mockEvents = [
   {
     id: 1,
-    title: 'Morning Meeting',
-    description: 'Team sync-up',
+    title: "Morning Meeting",
+    description: "Team sync-up",
     start: new Date().setHours(9, 0, 0, 0), // Today at 9:00 AM
     end: new Date().setHours(10, 0, 0, 0), // Today at 10:00 AM
-    color: '#FF5733',
-    location: 'Conference Room A',
-    guests: 'Alice, Bob, Charlie',
+    color: "#FF5733",
+    location: "Conference Room A",
+    guests: "Alice, Bob, Charlie",
   },
   {
     id: 2,
-    title: 'Lunch with Client',
-    description: 'Discuss partnership',
+    title: "Lunch with Client",
+    description: "Discuss partnership",
     start: new Date().setHours(12, 0, 0, 0), // Today at 12:00 PM
     end: new Date().setHours(13, 0, 0, 0), // Today at 1:00 PM
-    color: '#33A1FF',
-    location: 'Online - Zoom',
-    guests: 'Dev Team',
+    color: "#33A1FF",
+    location: "Online - Zoom",
+    guests: "Dev Team",
   },
   {
     id: 3,
-    title: 'Project Work',
-    description: 'Development time',
+    title: "Project Work",
+    description: "Development time",
     start: new Date().setHours(14, 0, 0, 0), // Today at 2:00 PM
     end: new Date().setHours(16, 0, 0, 0), // Today at 4:00 PM
-    color: '#FFC300',
-    location: 'Downtown Cafe',
-    guests: 'Client X',
+    color: "#FFC300",
+    location: "Downtown Cafe",
+    guests: "Client X",
   },
   {
     id: 4,
-    title: 'Weekly Sync',
-    description: 'All-hands meeting',
-    start: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(15, 0, 0, 0), // Tomorrow at 3:00 PM
-    end: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(16, 0, 0, 0), // Tomorrow at 4:00 PM
-    color: '#DAF7A6',
-    location: 'Online - Zoom',
-    guests: 'Dev Team',
+    title: "Weekly Sync",
+    description: "All-hands meeting",
+    start: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(
+      15,
+      0,
+      0,
+      0
+    ), // Tomorrow at 3:00 PM
+    end: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(
+      16,
+      0,
+      0,
+      0
+    ), // Tomorrow at 4:00 PM
+    color: "#DAF7A6",
+    location: "Online - Zoom",
+    guests: "Dev Team",
   },
 ];
+
+export const mockSettings: CalendarState["settings"] = {
+  mainColor: "blue",
+  secondColor: "gray",
+  availableDays: [1, 2, 3, 4, 5],
+  startHour: "08:00",
+  endHour: "18:00",
+};
