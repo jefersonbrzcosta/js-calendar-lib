@@ -1,12 +1,29 @@
-import { useCalendarContext } from '../state/CalendarContext';
-
-
 import { Tabs, ConfigProvider } from 'antd';
 import { CalendarOutlined, BarsOutlined, ClockCircleOutlined } from '@ant-design/icons';
 
+import { useCalendarContext } from '../state/CalendarContext';
+import MonthlyView from './monthly';
+
+const items: any = [
+  {
+    key: 'month',
+    label: 'Monthly View',
+    icon: <CalendarOutlined />
+  },
+  {
+    key: 'week',
+    label: 'Weekly View',
+    icon: <BarsOutlined />
+  },
+  {
+    key: 'day',
+    label: 'Daily View',
+    icon: <ClockCircleOutlined />
+  },
+]
+
 function CalendarApp() {
-  const { state, dispatch } = useCalendarContext();
-  const { mainColor } = state.settings;
+  const { view, settings: { mainColor }, dispatch } = useCalendarContext();
 
   const handleViewChange = (view: string) => {
     dispatch({ type: 'SET_VIEW', payload: view });
@@ -28,7 +45,7 @@ function CalendarApp() {
         <div className="px-4 bg-white shadow-lg rounded-lg">
           <Tabs
             defaultActiveKey="month"
-            activeKey={state.view}
+            activeKey={view}
             onChange={handleViewChange}
             size="large"
             tabBarGutter={16}
@@ -38,28 +55,12 @@ function CalendarApp() {
               borderBottom: `1px solid ${mainColor}`,
 
             }}
-            items={[
-              {
-                key: 'month',
-                label: 'Monthly View',
-                icon: <CalendarOutlined />
-              },
-              {
-                key: 'week',
-                label: 'Weekly View',
-                icon: <BarsOutlined />
-              },
-              {
-                key: 'day',
-                label: 'Daily View',
-                icon: <ClockCircleOutlined />
-              },
-            ]}
+            items={items}
           />
 
           {/* Render the selected view */}
-          {/* {state.view === 'month' && <MonthlyView />}
-          {state.view === 'week' && <WeeklyView />}
+          {view === 'month' && <MonthlyView />}
+          {/* {state.view === 'week' && <WeeklyView />}
           {state.view === 'day' && <DayView />} */}
         </div>
       </div>

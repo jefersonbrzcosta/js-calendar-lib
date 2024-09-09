@@ -1,5 +1,5 @@
 import { useReducer, createContext, useContext, ReactNode } from 'react';
-import { CalendarState, CalendarAction } from '../types/calendar';
+import { CalendarState, CalendarAction, CalendarContextType } from '../types/calendar-context';
 import { mockEvents } from '../utils/mocks'
 
 const tomorrow = new Date();
@@ -28,7 +28,7 @@ const calendarReducer = (state: CalendarState, action: CalendarAction): Calendar
       return {
         ...state,
         events: state.events.map(event =>
-          event.id === action.payload.id ? action.payload : event
+          event.id === action.payload.id ? { ...event, ...action.payload } : event
         ),
       };
     case 'SET_VIEW':
@@ -36,14 +36,14 @@ const calendarReducer = (state: CalendarState, action: CalendarAction): Calendar
     case 'SET_DATE':
       return { ...state, currentDate: action.payload };
     case 'SET_SETTINGS':
-      return { ...state, settings: action.payload };
+      return { ...state, settings: { ...state.settings, ...action.payload } };
     default:
       return state;
   }
 };
 
-const CalendarContext = createContext<any>({
-  state: initialState,
+const CalendarContext = createContext<CalendarContextType>({
+  ...initialState,
   dispatch: () => null,
 });
 
@@ -54,7 +54,7 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
   });
 
   return (
-    <CalendarContext.Provider value={{ state, dispatch }}>
+    <CalendarContext.Provider value={{ ...state, dispatch }}>
       {children}
     </CalendarContext.Provider>
   );
