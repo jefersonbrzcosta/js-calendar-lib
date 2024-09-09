@@ -35,9 +35,11 @@ const CalendarDays = () => {
         return (
           <div
             key={index}
-            className={`flex flex-col items-center justify-center h-24 cursor-pointer 
+            className={`flex flex-col items-center justify-center h-24 cursor-pointer
               rounded-lg ${isCurrentMonth ? "text-gray-800" : "text-gray-400"} ${
-                isAvailableDay ? "" : "opacity-50 pointer-events-none"
+                isAvailableDay
+                  ? "hover:bg-gray-100"
+                  : "opacity-20 pointer-events-none"
               }`}
             style={
               isToday(day)

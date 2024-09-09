@@ -15,9 +15,6 @@ const initialState: CalendarState = {
   settings: mockSettings,
 };
 
-const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
-
 const calendarReducer = (
   state: CalendarState,
   action: CalendarAction

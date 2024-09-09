@@ -18,6 +18,7 @@ function MonthsColumn() {
 
   return (
     <div className="px-14 pt-5 bg-gray-200">
+      {/* Change year buttons */}
       <div
         className="flex justify-between items-center"
         style={{ color: mainColor }}

@@ -14,10 +14,10 @@ function MonthList({
         return (
           <li
             key={index}
-            className={`text-lg pb-4 font-semibold cursor-pointer addOpacity`}
+            className={`text-lg pb-4 font-semibold cursor-pointer opacity-80 hover:opacity-100`}
             style={
               monthDate.getMonth() === currentDate.getMonth()
-                ? { color: mainColor }
+                ? { color: mainColor, opacity: 1 }
                 : { color: secondColor }
             }
             onClick={() => handleMonthClick(index, true)}
