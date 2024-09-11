@@ -7,6 +7,7 @@ import {
 
 import { useCalendarContext } from "../state/CalendarContext";
 import MonthlyView from "./monthly-view";
+import WeeklyView from "./weekly-view";
 
 const items: any = [
   {
@@ -69,8 +70,8 @@ function CalendarApp() {
 
           {/* Render the selected view */}
           {view === "month" && <MonthlyView />}
-          {/* {state.view === 'week' && <WeeklyView />}
-          {state.view === 'day' && <DayView />} */}
+          {view === "week" && <WeeklyView />}
+          {view === "day" && <></>}
         </div>
       </div>
     </ConfigProvider>

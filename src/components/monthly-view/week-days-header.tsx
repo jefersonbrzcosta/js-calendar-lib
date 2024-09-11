@@ -1,13 +1,13 @@
-import { Button } from "antd";
 import { format } from "date-fns";
 
 import { useCalendarContext } from "../../state/CalendarContext";
+import NavigationHeader from "../shared/navigation-header";
 
 const WeekDaysHeader = () => {
   const {
     currentDate,
     settings: { mainColor, secondColor },
-    handleMonthChange,
+    handleDateChange,
     handleGoToToday,
   } = useCalendarContext();
 
@@ -15,34 +15,13 @@ const WeekDaysHeader = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
-        <div className="text-2xl font-bold" style={{ color: mainColor }}>
-          {format(currentDate, "MMMM yyyy")}
-        </div>
-        <div className="flex items-center space-x-3">
-          <Button
-            onClick={() => handleMonthChange({ offset: -1 })}
-            className="text-lg"
-            style={{ color: mainColor }}
-          >
-            &lt;
-          </Button>
-          <Button
-            onClick={() => handleMonthChange({ offset: 1 })}
-            className="text-lg"
-            style={{ color: mainColor }}
-          >
-            &gt;
-          </Button>
-          <Button
-            onClick={handleGoToToday}
-            className="text-lg"
-            style={{ color: mainColor }}
-          >
-            Today
-          </Button>
-        </div>
-      </div>
+      <NavigationHeader
+        title={format(currentDate, "MMMM yyyy")}
+        calendarColor={mainColor}
+        onPrev={() => handleDateChange({ type: "monthly", offset: -1 })}
+        onNext={() => handleDateChange({ type: "monthly", offset: 1 })}
+        onToday={handleGoToToday}
+      />
 
       <div
         className="grid grid-cols-7 gap-2 text-center text-lg font-semibold mb-2"

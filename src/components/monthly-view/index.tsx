@@ -1,16 +1,17 @@
 import MonthsColumn from "./month-column";
 import WeekDaysHeader from "./week-days-header";
 import CalendarDays from "./calendar-days";
+import AnimationWrapper from "../shared/animation-wrapper";
 
 const MonthlyView = () => {
   return (
-    <div className="flex bg-gray-50">
+    <AnimationWrapper className="flex bg-gray-50">
       <MonthsColumn />
-      <div className="flex-1 p-5 relative">
+      <div className="flex-row w-5/6 px-5">
         <WeekDaysHeader />
         <CalendarDays />
       </div>
-    </div>
+    </AnimationWrapper>
   );
 };
 

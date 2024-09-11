@@ -34,14 +34,15 @@ type CalendarAction =
 
 export type CalendarDispatch = (action: CalendarAction) => void;
 
-export interface handleMonthChangeProps {
+export interface handleDateChangeProps {
+  type: "monthly" | "weekly" | "daily";
   offset: number;
   isList?: boolean;
 }
 
 export interface CalendarContextType extends CalendarState {
   dispatch: CalendarDispatch;
-  handleMonthChange: (params: handleMonthChangeProps) => void;
+  handleDateChange: (params: handleDateChangeProps) => void;
   handleGoToToday: () => void;
   handleDayClick: (date: Date) => void;
 }

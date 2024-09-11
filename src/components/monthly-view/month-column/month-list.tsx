@@ -5,7 +5,7 @@ function MonthList({
   currentDate,
   mainColor,
   secondColor,
-  handleMonthClick,
+  handleDateChange,
 }: MonthListProps) {
   return (
     <ul className="mt-8">
@@ -20,7 +20,9 @@ function MonthList({
                 ? { color: mainColor, opacity: 1 }
                 : { color: secondColor }
             }
-            onClick={() => handleMonthClick(index, true)}
+            onClick={() =>
+              handleDateChange({ type: "monthly", offset: index, isList: true })
+            }
           >
             {format(monthDate, "MMMM")}
           </li>

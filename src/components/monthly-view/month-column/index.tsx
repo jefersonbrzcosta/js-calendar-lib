@@ -1,4 +1,4 @@
-import { addMonths, format, setMonth } from "date-fns";
+import { format } from "date-fns";
 import { useCalendarContext } from "../../../state/CalendarContext";
 import MonthList from "./month-list";
 
@@ -6,32 +6,25 @@ function MonthsColumn() {
   const {
     currentDate,
     settings: { mainColor, secondColor },
-    dispatch,
+    handleDateChange,
   } = useCalendarContext();
 
-  const handleMonthChange = (offset: number, isList?: boolean) => {
-    const newDate = isList
-      ? setMonth(currentDate, offset)
-      : addMonths(currentDate, offset);
-    dispatch({ type: "SET_DATE", payload: newDate });
-  };
-
   return (
-    <div className="px-14 pt-5 bg-gray-200">
+    <div className="w-1/6 px-14 pt-5 bg-gray-200">
       {/* Change year buttons */}
       <div
         className="flex justify-between items-center"
         style={{ color: mainColor }}
       >
         <button
-          onClick={() => handleMonthChange(-12)}
+          onClick={() => handleDateChange({ type: "monthly", offset: -12 })}
           style={{ color: mainColor }}
         >
           &lt;
         </button>
         <div className="text-xl font-bold">{format(currentDate, "yyyy")}</div>
         <button
-          onClick={() => handleMonthChange(12)}
+          onClick={() => handleDateChange({ type: "monthly", offset: 12 })}
           style={{ color: mainColor }}
         >
           &gt;
@@ -41,7 +34,7 @@ function MonthsColumn() {
         currentDate={currentDate}
         mainColor={mainColor}
         secondColor={secondColor}
-        handleMonthClick={handleMonthChange}
+        handleDateChange={handleDateChange}
       />
     </div>
   );

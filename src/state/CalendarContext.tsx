@@ -3,10 +3,10 @@ import {
   CalendarState,
   CalendarAction,
   CalendarContextType,
-  handleMonthChangeProps,
+  handleDateChangeProps,
 } from "../types/calendar-context";
 import { mockEvents, mockSettings } from "../utils/mocks";
-import { addMonths, setMonth } from "date-fns";
+import { addDays, addMonths, addWeeks, setMonth } from "date-fns";
 
 const initialState: CalendarState = {
   events: mockEvents,
@@ -50,7 +50,7 @@ const calendarReducer = (
 const CalendarContext = createContext<CalendarContextType>({
   ...initialState,
   dispatch: () => null,
-  handleMonthChange: () => null,
+  handleDateChange: () => null,
   handleGoToToday: () => null,
   handleDayClick: () => null,
 });
@@ -61,11 +61,24 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
     settings: { ...initialState.settings },
   });
 
-  const handleMonthChange = ({ offset, isList }: handleMonthChangeProps) => {
-    const newDate = isList
-      ? setMonth(state.currentDate, offset)
-      : addMonths(state.currentDate, offset);
-    dispatch({ type: "SET_DATE", payload: newDate });
+  const handleDateChange = ({
+    type,
+    offset,
+    isList,
+  }: handleDateChangeProps) => {
+    const operations: Record<handleDateChangeProps["type"], () => Date> = {
+      monthly: () =>
+        isList
+          ? setMonth(state.currentDate, offset)
+          : addMonths(state.currentDate, offset),
+      weekly: () => addWeeks(state.currentDate, offset),
+      daily: () => addDays(state.currentDate, offset),
+    };
+
+    setTimeout(() => {
+      const newDate = operations[type]();
+      dispatch({ type: "SET_DATE", payload: newDate });
+    }, 300);
   };
 
   const handleGoToToday = () => {
@@ -82,7 +95,7 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
       value={{
         ...state,
         dispatch,
-        handleMonthChange,
+        handleDateChange,
         handleGoToToday,
         handleDayClick,
       }}

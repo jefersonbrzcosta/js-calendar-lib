@@ -1,8 +1,8 @@
-import { CalendarState } from "./calendar-context"
+import { CalendarState, handleDateChangeProps } from "./calendar-context";
 
 export interface MonthListProps {
-  currentDate: CalendarState["currentDate"]
-  mainColor: CalendarState["settings"]["mainColor"]
-  secondColor: CalendarState["settings"]["secondColor"]
-  handleMonthClick: (arg0: number, arg1?: boolean) => void
+  currentDate: CalendarState["currentDate"];
+  mainColor: CalendarState["settings"]["mainColor"];
+  secondColor: CalendarState["settings"]["secondColor"];
+  handleDateChange: (params: handleDateChangeProps) => void;
 }
