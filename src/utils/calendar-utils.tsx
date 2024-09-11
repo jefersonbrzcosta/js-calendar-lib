@@ -28,6 +28,18 @@ export const AvailableHoursArray = (startHour: string, endHour: string) => {
   );
 };
 
+export const isAvailableSlot = (
+  slot: string,
+  startHour: string,
+  endHour: string
+) => {
+  const startHourNumber = parseInt(startHour.split(":")[0], 10);
+  const endHourNumber = parseInt(endHour.split(":")[0], 10);
+  const slotNumber = parseInt(slot.split(":")[0], 10);
+
+  return slotNumber > startHourNumber && slotNumber < endHourNumber;
+};
+
 export const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`);
 
 export const getCurrentTimePosition = () => {

@@ -11,6 +11,7 @@ import {
   getCurrentTimePosition,
   getEventPosition,
   hours,
+  isAvailableSlot,
   isWithinHourSlot,
 } from "../../utils/calendar-utils";
 
@@ -18,7 +19,7 @@ const WeeksRows = () => {
   const {
     currentDate,
     events,
-    settings: { mainColor, secondColor },
+    settings: { mainColor, secondColor, startHour, endHour },
   } = useCalendarContext();
 
   const startWeek = startOfWeek(currentDate);
@@ -54,9 +55,11 @@ const WeeksRows = () => {
             {hours.map((hour, index) => (
               <div
                 key={index}
-                className="border-t border-gray-200 h-12 cursor-pointer hover:bg-gray-100 relative"
+                className={`border-t border-gray-200 h-12 cursor-pointer
+                   hover:bg-gray-100 relative ${isAvailableSlot(hour, startHour, endHour) ? "" : "opacity-35 cursor-default hover:bg-gray-50"}`}
                 onClick={() =>
                   // handleTimeSlotClick(day, parseInt(hour.split(":")[0]))
+                  isAvailableSlot(hour, startHour, endHour) &&
                   alert(
                     JSON.stringify({
                       day,
