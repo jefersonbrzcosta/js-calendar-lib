@@ -28,6 +28,26 @@ export const AvailableHoursArray = (startHour: string, endHour: string) => {
   );
 };
 
+export const isAvailableHourSlot = (
+  slot: string,
+  startHour: string,
+  endHour: string
+) => {
+  const startHourNumber = parseInt(startHour.split(":")[0], 10);
+  const endHourNumber = parseInt(endHour.split(":")[0], 10);
+  const slotNumber = parseInt(slot.split(":")[0], 10);
+
+  return slotNumber > startHourNumber && slotNumber < endHourNumber;
+};
+
+export const isAvailableDaySlot = (
+  slot: Date,
+  availableDays: AvailableDay[]
+) => {
+  const dayOfWeek = slot.getDay() === 0 ? 7 : slot.getDay();
+  return availableDays.includes(dayOfWeek as AvailableDay);
+};
+
 export const isAvailableSlot = (
   slot: string,
   startHour: string,

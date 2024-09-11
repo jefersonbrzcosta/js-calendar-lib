@@ -11,7 +11,8 @@ import {
   getCurrentTimePosition,
   getEventPosition,
   hours,
-  isAvailableSlot,
+  isAvailableDaySlot,
+  isAvailableHourSlot,
   isWithinHourSlot,
 } from "../../utils/calendar-utils";
 
@@ -19,7 +20,7 @@ const WeeksRows = () => {
   const {
     currentDate,
     events,
-    settings: { mainColor, secondColor, startHour, endHour },
+    settings: { mainColor, secondColor, startHour, endHour, availableDays },
   } = useCalendarContext();
 
   const startWeek = startOfWeek(currentDate);
@@ -30,6 +31,7 @@ const WeeksRows = () => {
     <div className="grid grid-cols-7 gap-2 w-10/12">
       {/* Weekday Columns */}
       {weekDays.map((day, dayIndex) => {
+        const isDayAvailable = isAvailableDaySlot(day, availableDays);
         const dayEvents = events.filter((event: any) =>
           isSameDay(new Date(event.start), day)
         );
@@ -37,15 +39,18 @@ const WeeksRows = () => {
         return (
           <div
             key={dayIndex}
-            className={`flex flex-col space-y-0 relative border-l border-gray-500 bg-white`}
+            className={`flex flex-col space-y-0 relative border-l border-gray-500 bg-white ${
+              !isDayAvailable && "opacity-35 cursor-default"
+            }`}
             style={{
+              pointerEvents: isDayAvailable ? "auto" : "none",
               borderLeft: dayIndex !== 0 ? `1px solid ${secondColor}` : "",
             }}
           >
             <div
               className={`text-center text-sm font-semibold h-12 pt-3 text-white`}
               style={{
-                backgroundColor: isToday(day) ? mainColor : secondColor, // Use mainColor here
+                backgroundColor: isToday(day) ? mainColor : secondColor,
               }}
             >
               {format(day, "EEE d")}
@@ -55,11 +60,13 @@ const WeeksRows = () => {
             {hours.map((hour, index) => (
               <div
                 key={index}
-                className={`border-t border-gray-200 h-12 cursor-pointer
-                   hover:bg-gray-100 relative ${isAvailableSlot(hour, startHour, endHour) ? "" : "opacity-35 cursor-default hover:bg-gray-50"}`}
+                className={`border-t border-gray-200 h-12 relative ${
+                  isAvailableHourSlot(hour, startHour, endHour)
+                    ? "hover:bg-gray-100 cursor-pointer"
+                    : "opacity-35 cursor-default"
+                }`}
                 onClick={() =>
-                  // handleTimeSlotClick(day, parseInt(hour.split(":")[0]))
-                  isAvailableSlot(hour, startHour, endHour) &&
+                  isAvailableHourSlot(hour, startHour, endHour) &&
                   alert(
                     JSON.stringify({
                       day,
@@ -97,7 +104,6 @@ const WeeksRows = () => {
                     top: position.top,
                     height: position.height,
                   }}
-                  // onClick={() => handleEventClick(event)}
                   onClick={() => alert(JSON.stringify(event))}
                 >
                   <div className="text-sm font-bold">
