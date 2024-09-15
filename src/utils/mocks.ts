@@ -54,9 +54,9 @@ export const mockEvents = [
 ];
 
 export const mockSettings: CalendarState["settings"] = {
-  mainColor: "blue",
-  secondColor: "gray",
-  availableDays: [1, 2, 3, 4, 5],
+  mainColor: "red",
+  secondColor: "green",
+  availableDays: [1, 2, 3, 4, 5, 6, 7],
   startHour: "08:00",
-  endHour: "18:00",
+  endHour: "19:00",
 };

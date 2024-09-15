@@ -17,7 +17,7 @@ const CalendarDays = () => {
     if (!eventsByDay[eventDate]) {
       eventsByDay[eventDate] = [];
     }
-    eventsByDay[eventDate].push({ color: event.color });
+    eventsByDay[eventDate].push(event);
   });
 
   const calendarDays = getCalendarDays(currentDate);
@@ -46,7 +46,15 @@ const CalendarDays = () => {
                 ? { color: "white", backgroundColor: secondColor }
                 : { color: mainColor }
             }
-            onClick={() => isAvailableDay && handleDayClick(day)}
+            onClick={() =>
+              isAvailableDay &&
+              alert(
+                JSON.stringify({
+                  date: day,
+                  events: dayEvents,
+                })
+              )
+            }
           >
             <div className="text-xl font-semibold">{format(day, "d")}</div>
 

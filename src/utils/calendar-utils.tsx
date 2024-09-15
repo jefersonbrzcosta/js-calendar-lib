@@ -70,15 +70,15 @@ export const getCurrentTimePosition = () => {
 };
 
 export const getEventPosition = (eventStart: Date, eventEnd: Date) => {
-  const HOUR_HEIGHT = 48; // Height of each hour slot in pixels
+  const HOUR_HEIGHT = 48;
   const startMinutes = eventStart.getHours() * 60 + eventStart.getMinutes();
   const endMinutes = eventEnd.getHours() * 60 + eventEnd.getMinutes();
 
-  const top = (startMinutes * HOUR_HEIGHT) / 60; // Convert start time to pixels
-  const height = ((endMinutes - startMinutes) * HOUR_HEIGHT) / 60; // Convert duration to pixels
+  const top = (startMinutes * HOUR_HEIGHT) / 60;
+  const height = ((endMinutes - startMinutes) * HOUR_HEIGHT) / 60;
 
   return {
-    top: `${top + 49}px`,
+    top: `${top + 48}px`,
     height: `${height}px`,
   };
 };
