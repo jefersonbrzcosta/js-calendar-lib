@@ -4,6 +4,7 @@ import {
   CalendarAction,
   CalendarContextType,
   handleDateChangeProps,
+  CalendarEvent,
 } from "../types/calendar-context";
 import { mockEvents, mockSettings } from "../utils/mocks";
 import { addDays, addMonths, addWeeks, setMonth } from "date-fns";
@@ -86,8 +87,8 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: "SET_DATE", payload: today });
   };
 
-  const handleDayClick = (date: Date) => {
-    alert(date);
+  const handleDayClick = (date: Date, events?: CalendarEvent[]) => {
+    alert(JSON.stringify({ date, events }));
   };
 
   return (

@@ -44,5 +44,13 @@ export interface CalendarContextType extends CalendarState {
   dispatch: CalendarDispatch;
   handleDateChange: (params: handleDateChangeProps) => void;
   handleGoToToday: () => void;
-  handleDayClick: (date: Date) => void;
+  handleDayClick: (
+    date: Date,
+    events?: {
+      color: string;
+      multiDay?: boolean;
+      start?: string;
+      end?: string;
+    }[]
+  ) => void;
 }

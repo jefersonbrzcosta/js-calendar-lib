@@ -1,4 +1,10 @@
-import { format, isToday } from "date-fns";
+import {
+  format,
+  isToday,
+  isBefore,
+  isAfter,
+  eachDayOfInterval,
+} from "date-fns";
 import { getCalendarDays, getDayNumber } from "../../utils/calendar-utils";
 import { useCalendarContext } from "../../state/CalendarContext";
 
@@ -11,13 +17,37 @@ const CalendarDays = () => {
     handleDayClick,
   } = useCalendarContext();
 
-  const eventsByDay: { [key: string]: { color: string }[] } = {};
+  // Create a mapping of events by day, including multi-day events
+  const eventsByDay: {
+    [key: string]: {
+      color: string;
+      multiDay?: boolean;
+      start?: string;
+      end?: string;
+    }[];
+  } = {};
+
   events.forEach((event) => {
-    const eventDate = format(new Date(event.start), "yyyy-MM-dd");
-    if (!eventsByDay[eventDate]) {
-      eventsByDay[eventDate] = [];
-    }
-    eventsByDay[eventDate].push(event);
+    const eventStart = new Date(event.start);
+    const eventEnd = new Date(event.end);
+
+    const eventDays = eachDayOfInterval({ start: eventStart, end: eventEnd });
+
+    eventDays.forEach((day) => {
+      const dayString = format(day, "yyyy-MM-dd");
+
+      if (!eventsByDay[dayString]) {
+        eventsByDay[dayString] = [];
+      }
+
+      // If the event spans multiple days, mark it
+      eventsByDay[dayString].push({
+        color: event.color,
+        multiDay: isBefore(eventStart, day) || isAfter(eventEnd, day),
+        start: format(eventStart, "yyyy-MM-dd"),
+        end: format(eventEnd, "yyyy-MM-dd"),
+      });
+    });
   });
 
   const calendarDays = getCalendarDays(currentDate);
@@ -46,15 +76,7 @@ const CalendarDays = () => {
                 ? { color: "white", backgroundColor: secondColor }
                 : { color: mainColor }
             }
-            onClick={() =>
-              isAvailableDay &&
-              alert(
-                JSON.stringify({
-                  date: day,
-                  events: dayEvents,
-                })
-              )
-            }
+            onClick={() => isAvailableDay && handleDayClick(day, dayEvents)}
           >
             <div className="text-xl font-semibold">{format(day, "d")}</div>
 
@@ -62,7 +84,9 @@ const CalendarDays = () => {
               {dayEvents.slice(0, 6).map((event, index) => (
                 <span
                   key={index}
-                  className="w-2 h-2 rounded-full m-0.5"
+                  className={`w-2 h-2 rounded-full m-0.5 ${
+                    event.multiDay ? "border border-white" : ""
+                  }`}
                   style={{ backgroundColor: event.color }}
                 ></span>
               ))}
@@ -72,7 +96,9 @@ const CalendarDays = () => {
                 {dayEvents.slice(6).map((event, idx) => (
                   <span
                     key={idx}
-                    className="w-2 h-2 rounded-full m-0.5"
+                    className={`w-2 h-2 rounded-full m-0.5 ${
+                      event.multiDay ? "border border-white" : ""
+                    }`}
                     style={{ backgroundColor: event.color }}
                   ></span>
                 ))}

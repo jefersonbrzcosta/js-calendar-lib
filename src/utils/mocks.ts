@@ -41,7 +41,7 @@ export const mockEvents = [
       0,
       0
     ), // Tomorrow at 3:00 PM
-    end: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(
+    end: new Date(new Date().setDate(new Date().getDate() + 2)).setHours(
       16,
       0,
       0,
