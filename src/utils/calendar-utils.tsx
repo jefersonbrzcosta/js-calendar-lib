@@ -93,3 +93,7 @@ export const isWithinHourSlot = (
   // Check if currentHour is between the slot start hour and the next hour
   return currentHour >= slotStartHour && currentHour < slotStartHour + 1;
 };
+
+export const isScreenMobile = () => {
+  return window.innerWidth < 450;
+};

@@ -28,7 +28,7 @@ const WeeksRows = () => {
   const weekDays = eachDayOfInterval({ start: startWeek, end: endWeek });
 
   return (
-    <div className="grid grid-cols-7 gap-2 w-10/12">
+    <div className="grid grid-cols-7 gap-0.1 w-full">
       {/* Weekday Columns */}
       {weekDays.map((day, dayIndex) => {
         const isDayAvailable = isAvailableDaySlot(day, availableDays);
@@ -48,7 +48,7 @@ const WeeksRows = () => {
             }}
           >
             <div
-              className={`text-center text-sm font-semibold h-12 pt-3 text-white`}
+              className={`text-center text-xs sm:text-sm sm:font-semibold h-12 pt-3 text-white`}
               style={{
                 backgroundColor: isToday(day) ? mainColor : secondColor,
               }}
@@ -98,7 +98,7 @@ const WeeksRows = () => {
               return (
                 <div
                   key={eventIndex}
-                  className="absolute left-0 right-0 mx-2 rounded-lg shadow text-white px-2 cursor-pointer"
+                  className="absolute left-0 right-0 rounded-lg shadow text-white px-2 cursor-pointer"
                   style={{
                     backgroundColor: event.color,
                     top: position.top,
@@ -106,10 +106,12 @@ const WeeksRows = () => {
                   }}
                   onClick={() => alert(JSON.stringify(event))}
                 >
-                  <div className="text-sm font-bold">
+                  <div className="text-xs sm:text-md font-bold">
                     {format(eventStart, "h:mm a")}
                   </div>
-                  <div className="text-xs">{event.title}</div>
+                  <div className="text-xs break-words sm:text-md">
+                    {event.title}
+                  </div>
                 </div>
               );
             })}

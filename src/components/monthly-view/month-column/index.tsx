@@ -10,7 +10,7 @@ function MonthsColumn() {
   } = useCalendarContext();
 
   return (
-    <div className="w-1/6 px-14 pt-5 bg-gray-200">
+    <div className="w-full sm:w-1/4 p-6 bg-gray-200">
       {/* Change year buttons */}
       <div
         className="flex justify-between items-center"

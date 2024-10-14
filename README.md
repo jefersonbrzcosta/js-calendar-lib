@@ -2,9 +2,8 @@ TODO:
 
 Migrate day view; - DONE
 Send events along with the onDayClick events; - DONE
-Enable more then 1 day events;
+Enable more then 1 day events - OK
 Add the options about how many hours row will calendar show;
-Improve design with AI;
 Add responsiviness;
 Create the configuration screen;
 Enable option to show configurations (icon);

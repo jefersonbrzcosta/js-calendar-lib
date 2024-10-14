@@ -26,7 +26,7 @@ const DaysRows: React.FC<DaysRowsProps> = () => {
   );
 
   return (
-    <div className="grid grid-cols-1 gap-2 w-10/12">
+    <div className="grid grid-cols-1 gap-2 w-full">
       {/* Day Column */}
       <div
         className={`flex flex-col space-y-0 relative border-l border-gray-500 bg-white ${

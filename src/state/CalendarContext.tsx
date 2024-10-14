@@ -87,7 +87,15 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: "SET_DATE", payload: today });
   };
 
-  const handleDayClick = (date: Date, events?: CalendarEvent[]) => {
+  const handleDayClick = (
+    date: Date,
+    events?: {
+      color: string;
+      multiDay?: boolean;
+      start?: string;
+      end?: string;
+    }[]
+  ) => {
     alert(JSON.stringify({ date, events }));
   };
 

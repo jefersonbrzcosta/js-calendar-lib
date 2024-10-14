@@ -54,17 +54,16 @@ function CalendarApp() {
       }}
     >
       <div className="w-full flex flex-col">
-        <div className="px-4 bg-white shadow-lg rounded-lg">
+        <div className="px-1 sm:px-4 bg-white shadow-lg rounded-lg">
           <Tabs
             defaultActiveKey="month"
             activeKey={view}
             onChange={handleViewChange}
-            size="large"
+            size="small"
             tabBarGutter={16}
             tabBarStyle={{
               marginBottom: "1rem",
               color: mainColor,
-              borderBottom: `1px solid ${mainColor}`,
             }}
             items={items}
           />
