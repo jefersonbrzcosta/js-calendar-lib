@@ -12,7 +12,7 @@ const AnimationWrapper: React.FC<WrapperProps> = ({ children, className }) => {
       className={`flex bg-gray-50 ${className ?? ""}`}
       initial={{ opacity: 0, x: 1050 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.5 }}
     >
       {children}
     </motion.div>

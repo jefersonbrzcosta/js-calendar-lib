@@ -17,7 +17,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
   onToday,
 }) => {
   return (
-    <div className="flex justify-between items-center mb-3 flex-col sm:flex-row">
+    <div className="flex justify-between items-center mb-3 flex-col sm:flex-row p-2">
       <div
         className="text-md sm:text-2xl font-bold mb-2"
         style={{ color: calendarColor }}
@@ -29,14 +29,14 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
           <Button
             onClick={onPrev}
             style={{ color: calendarColor }}
-            className="text-xs sm:text-lg hover:opacity-80"
+            className="text-xs sm:text-lg hover:opacity-80 shadow rounded-full border border-gray-200 p-4 font-serif"
           >
             &lt;
           </Button>
           <Button
             onClick={onNext}
             style={{ color: calendarColor }}
-            className="text-xs sm:text-lg hover:opacity-80"
+            className="text-xs sm:text-lg hover:opacity-80 shadow rounded-full border border-gray-200 p-4 font-serif"
           >
             &gt;
           </Button>
@@ -45,7 +45,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
           size={isScreenMobile() ? "small" : "middle"}
           onClick={onToday}
           style={{ color: calendarColor }}
-          className="text-xs sm:text-lg hover:opacity-80"
+          className="text-xs sm:text-lg hover:opacity-80 shadow rounded-full border border-gray-200 p-4 font-serif"
         >
           Today
         </Button>

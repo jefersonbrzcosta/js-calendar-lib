@@ -24,7 +24,7 @@ const WeekDaysHeader = () => {
       />
 
       <div
-        className="grid grid-cols-7 gap-2 text-center text-lg font-semibold mb-2"
+        className="grid grid-cols-7 gap-2 text-center text-lg font-semibold mb-0"
         style={{ color: "white", backgroundColor: secondColor }}
       >
         {days.map((day, index) => (

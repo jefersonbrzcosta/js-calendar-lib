@@ -10,7 +10,7 @@ function MonthsColumn() {
   } = useCalendarContext();
 
   return (
-    <div className="w-full sm:w-1/4 p-6 bg-gray-200">
+    <div className="w-full sm:w-1/4 p-6 border border-gray rounded-md font-serif">
       {/* Change year buttons */}
       <div
         className="flex justify-between items-center"
@@ -19,13 +19,15 @@ function MonthsColumn() {
         <button
           onClick={() => handleDateChange({ type: "monthly", offset: -12 })}
           style={{ color: mainColor }}
+      
         >
           &lt;
         </button>
-        <div className="text-xl font-bold">{format(currentDate, "yyyy")}</div>
+        <div className="text-xl font-bold" >{format(currentDate, "yyyy")}</div>
         <button
           onClick={() => handleDateChange({ type: "monthly", offset: 12 })}
           style={{ color: mainColor }}
+          
         >
           &gt;
         </button>

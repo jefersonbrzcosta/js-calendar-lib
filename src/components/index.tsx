@@ -49,6 +49,7 @@ function CalendarApp() {
             itemHoverColor: mainColor,
             itemSelectedColor: mainColor,
             itemColor: "gray",
+            fontFamily: "sans",
           },
         },
       }}
@@ -59,8 +60,8 @@ function CalendarApp() {
             defaultActiveKey="month"
             activeKey={view}
             onChange={handleViewChange}
-            size="small"
-            tabBarGutter={16}
+            size="middle"
+            tabBarGutter={20}
             tabBarStyle={{
               marginBottom: "1rem",
               color: mainColor,

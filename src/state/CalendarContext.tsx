@@ -4,7 +4,7 @@ import {
   CalendarAction,
   CalendarContextType,
   handleDateChangeProps,
-  CalendarEvent,
+  /*CalendarEvent,*/
 } from "../types/calendar-context";
 import { mockEvents, mockSettings } from "../utils/mocks";
 import { addDays, addMonths, addWeeks, setMonth } from "date-fns";

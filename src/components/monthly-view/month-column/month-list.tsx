@@ -29,7 +29,8 @@ function MonthList({
           <li
             key={index}
             ref={(el) => (monthRefs.current[index] = el)}
-            className={`px-2 text-lg pb-4 font-semibold cursor-pointer opacity-80 hover:opacity-100`}
+            className={`flex items-center justify-center text-lg p-3 font-semibold border border-gray
+              rounded-lg shadow cursor-pointer opacity-75 hover:opacity-100 mb-1 font-sans`}
             style={
               monthDate.getMonth() === currentDate.getMonth()
                 ? { color: mainColor, opacity: 1 }

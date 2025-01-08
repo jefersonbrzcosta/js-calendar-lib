@@ -7,6 +7,9 @@ import {
 } from "date-fns";
 import { getCalendarDays, getDayNumber } from "../../utils/calendar-utils";
 import { useCalendarContext } from "../../state/CalendarContext";
+import { isScreenMobile } from "../../utils/calendar-utils";
+/*import { brotliDecompress } from "zlib";*/
+/*import { main } from "framer-motion/client";*/
 
 const CalendarDays = () => {
   const {
@@ -53,28 +56,29 @@ const CalendarDays = () => {
   const calendarDays = getCalendarDays(currentDate);
 
   return (
-    <div className="grid grid-cols-7 gap-2">
+    <div className="grid grid-cols-7 gap-1 border-l border-r border-b border-gray p-2 shadow-lg">
       {calendarDays.map((day, index) => {
-        const isCurrentMonth = day.getMonth() === currentDate.getMonth();
+        const isCurrentMonth = day.getMonth() === currentDate.getMonth();      
         const isAvailableDay = settings.availableDays.includes(
           getDayNumber(day)
         );
         const dayString = format(day, "yyyy-MM-dd");
         const dayEvents = eventsByDay[dayString] || [];
+        const classNames = `flex flex-col items-center border border-gray shadow justify-center rounded-lg cursor-pointer 
+        ${isCurrentMonth ? "text-gray-800" : "text-gray-400"} 
+        ${isAvailableDay ? "hover:bg-gray-200" : "opacity-20 pointer-events-none"} 
+        ${isScreenMobile() ? "h-14" : "h-32"} font-serif`;
+
 
         return (
           <div
             key={index}
-            className={`flex flex-col items-center justify-center h-24 cursor-pointer
-              rounded-lg ${isCurrentMonth ? "text-gray-800" : "text-gray-400"} ${
-                isAvailableDay
-                  ? "hover:bg-gray-100"
-                  : "opacity-20 pointer-events-none"
-              }`}
+            
+            className={classNames}
             style={
               isToday(day)
-                ? { color: "white", backgroundColor: secondColor }
-                : { color: mainColor }
+                ? { color: mainColor, backgroundColor: secondColor, boxShadow: `0 0 10px ${mainColor}`, border: `2px solid ${secondColor}`}
+                : { color: mainColor, boxShadow: `0 0 2px ${secondColor}`}
             }
             onClick={() => isAvailableDay && handleDayClick(day, dayEvents)}
           >
@@ -84,8 +88,8 @@ const CalendarDays = () => {
               {dayEvents.slice(0, 6).map((event, index) => (
                 <span
                   key={index}
-                  className={`w-2 h-2 rounded-full m-0.5 ${
-                    event.multiDay ? "border border-white" : ""
+                  className={`w-2.5 h-2.5 rounded-full m-0.5 ${
+                    event.multiDay ? "border border-black" : ""
                   }`}
                   style={{ backgroundColor: event.color }}
                 ></span>
@@ -96,8 +100,8 @@ const CalendarDays = () => {
                 {dayEvents.slice(6).map((event, idx) => (
                   <span
                     key={idx}
-                    className={`w-2 h-2 rounded-full m-0.5 ${
-                      event.multiDay ? "border border-white" : ""
+                    className={`w-2.5 h-2.5 rounded-full m-0.5 ${
+                      event.multiDay ? "border border-black" : ""
                     }`}
                     style={{ backgroundColor: event.color }}
                   ></span>
