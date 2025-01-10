@@ -8,8 +8,6 @@ import {
 import { getCalendarDays, getDayNumber } from "../../utils/calendar-utils";
 import { useCalendarContext } from "../../state/CalendarContext";
 import { isScreenMobile } from "../../utils/calendar-utils";
-/*import { brotliDecompress } from "zlib";*/
-/*import { main } from "framer-motion/client";*/
 
 const CalendarDays = () => {
   const {
