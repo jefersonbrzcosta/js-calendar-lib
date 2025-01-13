@@ -5,7 +5,7 @@ import Header from "./header";
 
 const DailyView = () => {
   return (
-    <AnimationWrapper className="flex bg-gray-50 flex-col w-full">
+    <AnimationWrapper className="flex bg-gray-50 flex-col w-full border border-gray-300 rounded-md shadow p-2">
       <Header />
       <div className="flex">
         <TimeColumn />

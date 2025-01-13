@@ -21,7 +21,7 @@ export const TimeColumn = () => {
   };
 
   return (
-    <div className="flex flex-col space-y-0 sm:w-2/12">
+    <div className="flex flex-col space-y-0 sm:w-2/12 font-sans border border-gray-200 rounded-md p-1">
       <div className="h-12" />
       {hours.map((hour, index) => {
         const hourInt = parseInt(hour.split(":")[0], 10);
@@ -30,8 +30,8 @@ export const TimeColumn = () => {
         return (
           <div
             key={index}
-            className={`flex pr-1 text-xs sm:text-base h-12 items-center sm:justify-center sm:text-white sm:border-b sm:border-gray-200 ${
-              isCurrentHour && isMobile && `font-extrabold`
+            className={`flex pr-1 text-xs sm:text-base h-12 items-center sm:justify-center sm:text-white sm:border-b sm:border-gray-200 rounded${
+              isCurrentHour && isMobile ? `font-extrabold` : ''
             }`}
             style={{
               backgroundColor: renderRightBackgroundColor(isCurrentHour),
@@ -39,6 +39,7 @@ export const TimeColumn = () => {
           >
             {hour}
           </div>
+
         );
       })}
     </div>
