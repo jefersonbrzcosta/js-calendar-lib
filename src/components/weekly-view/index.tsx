@@ -5,7 +5,7 @@ import WeeksRows from "./weeks-rows";
 
 const WeeklyView = () => {
   return (
-    <AnimationWrapper className="flex bg-red-50 flex-col">
+    <AnimationWrapper className="flex border border-gray-200 rounded-xl shadow-md flex-col p-2">
       <Header />
       <div className="flex flex-row">
         <TimeColumn />

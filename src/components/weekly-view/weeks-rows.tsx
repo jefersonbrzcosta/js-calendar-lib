@@ -28,7 +28,7 @@ const WeeksRows = () => {
   const weekDays = eachDayOfInterval({ start: startWeek, end: endWeek });
 
   return (
-    <div className="grid grid-cols-7 gap-0.1 w-full">
+    <div className="grid grid-cols-7 gap-0.5 w-full p-1 border border-gray-200 rounded-md shadow-md">
       {/* Weekday Columns */}
       {weekDays.map((day, dayIndex) => {
         const isDayAvailable = isAvailableDaySlot(day, availableDays);
@@ -39,18 +39,20 @@ const WeeksRows = () => {
         return (
           <div
             key={dayIndex}
-            className={`flex flex-col space-y-0 relative border-l border-gray-500 bg-white ${
-              !isDayAvailable && "opacity-35 cursor-default"
+            className={`flex flex-col relative rounded-lg shadow-md bg-white${
+              !isDayAvailable && "opacity-50 cursor-not-allowed"
             }`}
             style={{
               pointerEvents: isDayAvailable ? "auto" : "none",
-              borderLeft: dayIndex !== 0 ? `1px solid ${secondColor}` : "",
+              border: `2px solid ${isToday(day) ? mainColor : secondColor}`,
             }}
           >
+            {/* Header for Day */}
             <div
-              className={`text-center text-xs sm:text-sm sm:font-semibold h-12 pt-3 text-white`}
+              className={`text-center text-xs sm:text-sm sm:font-semibold h-12 pt-4 rounded-t-md shadow`}
               style={{
                 backgroundColor: isToday(day) ? mainColor : secondColor,
+                color: "white",
               }}
             >
               {format(day, "EEE d")}
@@ -60,9 +62,9 @@ const WeeksRows = () => {
             {hours.map((hour, index) => (
               <div
                 key={index}
-                className={`border-t border-gray-200 h-12 relative ${
+                className={`border-t border-gray-200 h-12 relative hover:shadow-md rounded-md${
                   isAvailableHourSlot(hour, startHour, endHour)
-                    ? "hover:bg-gray-100 cursor-pointer"
+                    ? "hover:bg-gray-200 cursor-pointer"
                     : "opacity-35 cursor-default"
                 }`}
                 onClick={() =>
@@ -98,7 +100,7 @@ const WeeksRows = () => {
               return (
                 <div
                   key={eventIndex}
-                  className="absolute left-0 right-0 rounded-lg shadow text-white px-2 cursor-pointer"
+                  className="absolute left-1 right-1 rounded-lg shadow-lg text-white px-2 py-2 cursor-pointer"
                   style={{
                     backgroundColor: event.color,
                     top: position.top,
@@ -106,10 +108,10 @@ const WeeksRows = () => {
                   }}
                   onClick={() => alert(JSON.stringify(event))}
                 >
-                  <div className="text-xs sm:text-md font-bold">
+                  <div className="text-xs sm:text-md font-bold font-sans">
                     {format(eventStart, "h:mm a")}
                   </div>
-                  <div className="text-xs break-words sm:text-md">
+                  <div className="text-xs break-words sm:text-md font-serif">
                     {event.title}
                   </div>
                 </div>

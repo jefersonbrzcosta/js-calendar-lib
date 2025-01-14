@@ -26,10 +26,10 @@ const DaysRows: React.FC<DaysRowsProps> = () => {
   );
 
   return (
-    <div className="grid grid-cols-1 gap-2 w-full">
+    <div className="grid grid-cols-1 gap-2 w-full border border-gray-300 rounded-md shadow p-1">
       {/* Day Column */}
       <div
-        className={`flex flex-col space-y-0 relative border-l border-gray-500 bg-white ${
+        className={`flex flex-col space-y-0 relative bg-white ${
           !isDayAvailable && "opacity-35 cursor-default"
         }`}
         style={{
@@ -37,7 +37,7 @@ const DaysRows: React.FC<DaysRowsProps> = () => {
         }}
       >
         <div
-          className="text-center text-md font-semibold h-12 pt-3 text-white"
+          className="text-center text-lg font-semibold font-serif h-12 pt-3 text-white rounded-md shadow"
           style={{
             backgroundColor: isToday(currentDate) ? mainColor : secondColor,
           }}
@@ -49,9 +49,9 @@ const DaysRows: React.FC<DaysRowsProps> = () => {
         {hours.map((hour, index) => (
           <div
             key={index}
-            className={`border-t border-gray-200 h-12 relative ${
+            className={`border border-gray-300 shadow-sm h-12 relative ${
               isAvailableHourSlot(hour, startHour, endHour)
-                ? "hover:bg-gray-100 cursor-pointer"
+                ? "hover:bg-gray-200 cursor-pointer"
                 : "opacity-35 cursor-default"
             }`}
             onClick={() =>
