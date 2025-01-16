@@ -97,3 +97,34 @@ export const isWithinHourSlot = (
 export const isScreenMobile = () => {
   return window.innerWidth < 450;
 };
+
+export const addHoursInDate = (date: Date | string, hour: string) => {
+  // Create a new date based on 'date'
+  const dayAndHour = new Date(date); // Create a new Date object from 'date'
+                    
+  // Separate the time string to get the hour and minutes
+  const [hourValue, minuteValue] = hour.split(":").map(Number);
+  
+  // Sets the hour and minutes and return
+  return dayAndHour.setHours(hourValue, minuteValue, 0, 0);
+}
+
+export const justHourAndMinutes = (date: Date) => {
+  const Hour = date.getHours();
+  const Minutes = date.getMinutes();
+  let newhour;
+  let newminutes;
+
+  console.log(Hour)
+  console.log(Minutes)
+
+  if (Hour < 10){
+    newhour = 0 + Hour.toString();
+  }
+  if (Minutes < 10){
+    newminutes = 0 + Minutes.toString();
+  }
+
+  const fullhour = newhour + ":" + newminutes;
+  return fullhour;
+}

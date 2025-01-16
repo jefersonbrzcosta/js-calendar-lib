@@ -6,7 +6,7 @@ import {
   handleDateChangeProps,
 } from "../types/calendar-context";
 import { mockEvents, mockSettings } from "../utils/mocks";
-import { addDays, addMonths, addWeeks, setMonth } from "date-fns";
+import { addDays, addMonths, addWeeks, setMonth, format } from "date-fns";
 
 const initialState: CalendarState = {
   events: mockEvents,
@@ -87,16 +87,47 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleDayClick = (
-    date: Date,
+    date: Date | string,
     events?: {
+      title: string;
       color: string;
       multiDay?: boolean;
       start?: string;
       end?: string;
     }[]
   ) => {
-    alert(JSON.stringify({ date, events }));
-  };
+            if (events){
+            if (events?.length > 0) {
+              let titlesofevents = "[" + events[0].title;
+              for (let i = 1; i < events?.length; i++){
+                titlesofevents = titlesofevents + "," + events[i].title;
+              }
+              titlesofevents = titlesofevents + "]";
+              alert(JSON.stringify({"date":date, "titles":titlesofevents}));
+            }else{
+              alert(JSON.stringify({"date":date}));
+            }
+          }else{
+                  //search date in mock
+                  const everyevents = mockEvents;
+                  let haveevent = false;
+                  const dateofdate = format(new Date(date), 'MM/dd/yyyy hh:mm');
+
+                  for (let i = 0; i < everyevents.length; i++){
+                    const datei = format(new Date(everyevents[i].start), 'MM/dd/yyyy hh:mm');
+                                        
+                    if (datei === dateofdate){
+                      const titleofevent = everyevents[i].title;
+                      alert(JSON.stringify({"date": datei, "title": titleofevent}));
+                      haveevent = true;
+                    }
+                  }
+                  if (!haveevent){
+                    alert(JSON.stringify({"date": dateofdate}));
+                  }
+              
+          } 
+        };
 
   return (
     <CalendarContext.Provider

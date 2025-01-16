@@ -21,6 +21,7 @@ const CalendarDays = () => {
   // Create a mapping of events by day, including multi-day events
   const eventsByDay: {
     [key: string]: {
+      title: string;
       color: string;
       multiDay?: boolean;
       start?: string;
@@ -43,6 +44,7 @@ const CalendarDays = () => {
 
       // If the event spans multiple days, mark it
       eventsByDay[dayString].push({
+        title: event.title,
         color: event.color,
         multiDay: isBefore(eventStart, day) || isAfter(eventEnd, day),
         start: format(eventStart, "yyyy-MM-dd"),
