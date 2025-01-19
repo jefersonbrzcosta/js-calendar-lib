@@ -7,6 +7,8 @@ import {
   isAvailableDaySlot,
   isAvailableHourSlot,
   isWithinHourSlot,
+  addHoursInDate,
+  justHourAndMinutes
 } from "../../utils/calendar-utils";
 
 interface DaysRowsProps {
@@ -18,6 +20,7 @@ const DaysRows: React.FC<DaysRowsProps> = () => {
     currentDate,
     events,
     settings: { mainColor, secondColor, startHour, endHour, availableDays },
+    handleDayClick,
   } = useCalendarContext();
 
   const isDayAvailable = isAvailableDaySlot(currentDate, availableDays);
@@ -49,21 +52,20 @@ const DaysRows: React.FC<DaysRowsProps> = () => {
         {hours.map((hour, index) => (
           <div
             key={index}
-            className={`border border-gray-300 shadow-sm h-12 relative ${
-              isAvailableHourSlot(hour, startHour, endHour)
-                ? "hover:bg-gray-200 cursor-pointer"
-                : "opacity-35 cursor-default"
-            }`}
-            onClick={() =>
-              isAvailableHourSlot(hour, startHour, endHour) &&
-              alert(
-                JSON.stringify({
-                  day: currentDate,
-                  hour,
-                })
-              )
+              className={`border border-gray-300 shadow-sm h-12 relative ${
+                isAvailableHourSlot(hour, startHour, endHour)
+                  ? "hover:bg-gray-200 cursor-pointer"
+                  : "opacity-35 cursor-default"
+              }`
             }
+            onClick={() =>{
+              if (isAvailableHourSlot(hour, startHour, endHour)) {
+                const dateandhour = new Date(addHoursInDate(currentDate, hour));          
+                handleDayClick(dateandhour);
+              }
+            }}
           >
+
             {isWithinHourSlot(currentDate, hour) && isToday(currentDate) && (
               <div
                 className="absolute left-0 right-0 h-0.5 bg-red-500 z-10 opacity-60"
@@ -90,7 +92,16 @@ const DaysRows: React.FC<DaysRowsProps> = () => {
                 top: position.top,
                 height: position.height,
               }}
-              onClick={() => alert(JSON.stringify(event))}
+              onClick={() => {
+                const clickedHour = justHourAndMinutes(eventStart);
+                const actualdate = new Date(currentDate);
+                
+                if (isAvailableHourSlot(clickedHour, startHour, endHour)) {
+                  const dateandhour = new Date(addHoursInDate(actualdate, clickedHour));          
+                  handleDayClick(dateandhour);
+                }
+                
+              }}
             >
               <div className="text-sm font-bold">
                 {format(eventStart, "h:mm a")} - {format(eventEnd, "h:mm a")}

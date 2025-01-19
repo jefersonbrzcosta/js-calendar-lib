@@ -6,7 +6,7 @@ import {
   handleDateChangeProps,
 } from "../types/calendar-context";
 import { mockEvents, mockSettings } from "../utils/mocks";
-import { addDays, addMonths, addWeeks, setMonth } from "date-fns";
+import { addDays, addMonths, addWeeks, setMonth, format } from "date-fns";
 
 const initialState: CalendarState = {
   events: mockEvents,
@@ -86,16 +86,38 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: "SET_DATE", payload: today });
   };
 
+  const getEventTitles = (events: { title: string }[]): string => {
+    return `[${events.map(event => event.title).join(",")}]`;
+  };
+  
+  const searchEventInMock = (date: Date | string, mockEvents: any[]): { date: string; title?: string } => {
+    const formattedDate = format(new Date(date), "MM/dd/yyyy hh:mm");
+    for (const event of mockEvents) {
+      const eventDate = format(new Date(event.start), "MM/dd/yyyy hh:mm");
+      if (eventDate === formattedDate) {
+        return { date: formattedDate, title: event.title };
+      }
+    }
+    return { date: formattedDate };
+  };
+
   const handleDayClick = (
-    date: Date,
+    date: Date | string,
     events?: {
+      title: string;
       color: string;
       multiDay?: boolean;
       start?: string;
       end?: string;
     }[]
   ) => {
-    alert(JSON.stringify({ date, events }));
+    if (events && events.length > 0) {
+      const titles = getEventTitles(events);
+      alert(JSON.stringify({ date, titles }));
+    } else {
+      const result = searchEventInMock(date, mockEvents);
+      alert(JSON.stringify(result));
+    }
   };
 
   return (

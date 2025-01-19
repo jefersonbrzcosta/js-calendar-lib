@@ -47,6 +47,7 @@ export interface CalendarContextType extends CalendarState {
   handleDayClick: (
     date: Date,
     events?: {
+      title: string;
       color: string;
       multiDay?: boolean;
       start?: string;

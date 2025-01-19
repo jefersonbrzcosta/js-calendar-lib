@@ -14,13 +14,16 @@ import {
   isAvailableDaySlot,
   isAvailableHourSlot,
   isWithinHourSlot,
+  addHoursInDate,
 } from "../../utils/calendar-utils";
+
 
 const WeeksRows = () => {
   const {
     currentDate,
     events,
     settings: { mainColor, secondColor, startHour, endHour, availableDays },
+    handleDayClick,
   } = useCalendarContext();
 
   const startWeek = startOfWeek(currentDate);
@@ -67,15 +70,13 @@ const WeeksRows = () => {
                     ? "hover:bg-gray-200 cursor-pointer"
                     : "opacity-35 cursor-default"
                 }`}
-                onClick={() =>
-                  isAvailableHourSlot(hour, startHour, endHour) &&
-                  alert(
-                    JSON.stringify({
-                      day,
-                      hour,
-                    })
-                  )
-                }
+                onClick={() => {
+                  if (isAvailableHourSlot(hour, startHour, endHour)) {
+                    const dateandhour = new Date(addHoursInDate(day, hour));          
+                    handleDayClick(dateandhour);
+                  }
+                }}
+                
               >
                 {isWithinHourSlot(currentDate, hour) &&
                   format(currentDate, "yyyy-MM-dd") ===
@@ -106,7 +107,7 @@ const WeeksRows = () => {
                     top: position.top,
                     height: position.height,
                   }}
-                  onClick={() => alert(JSON.stringify(event))}
+                  onClick={() => handleDayClick(eventStart)}
                 >
                   <div className="text-xs sm:text-md font-bold font-sans">
                     {format(eventStart, "h:mm a")}
