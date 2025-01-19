@@ -109,22 +109,30 @@ export const addHoursInDate = (date: Date | string, hour: string) => {
   return dayAndHour.setHours(hourValue, minuteValue, 0, 0);
 }
 
+export const verifyHourAndMinutes = (pass: number) => {
+  
+  let newnumber;
+
+  if (pass < 10){
+    newnumber = "0" + pass.toString();
+  }else{
+    newnumber = pass.toString();
+  }
+
+  return newnumber;
+
+}
+
 export const justHourAndMinutes = (date: Date) => {
+  //extract hours and minutes from the past date as a parameter
   const Hour = date.getHours();
   const Minutes = date.getMinutes();
-  let newhour;
-  let newminutes;
 
-  console.log(Hour)
-  console.log(Minutes)
+  //creates variable and checks if the number entered is less than 10
+  let newhour = verifyHourAndMinutes(Hour);
+  let newminutes = verifyHourAndMinutes(Minutes);
 
-  if (Hour < 10){
-    newhour = 0 + Hour.toString();
-  }
-  if (Minutes < 10){
-    newminutes = 0 + Minutes.toString();
-  }
-
+  //concatenates the "new hours" and "new minutes"
   const fullhour = newhour + ":" + newminutes;
   return fullhour;
 }

@@ -86,6 +86,21 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: "SET_DATE", payload: today });
   };
 
+  const getEventTitles = (events: { title: string }[]): string => {
+    return `[${events.map(event => event.title).join(",")}]`;
+  };
+  
+  const searchEventInMock = (date: Date | string, mockEvents: any[]): { date: string; title?: string } => {
+    const formattedDate = format(new Date(date), "MM/dd/yyyy hh:mm");
+    for (const event of mockEvents) {
+      const eventDate = format(new Date(event.start), "MM/dd/yyyy hh:mm");
+      if (eventDate === formattedDate) {
+        return { date: formattedDate, title: event.title };
+      }
+    }
+    return { date: formattedDate };
+  };
+
   const handleDayClick = (
     date: Date | string,
     events?: {
@@ -96,38 +111,14 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
       end?: string;
     }[]
   ) => {
-            if (events){
-            if (events?.length > 0) {
-              let titlesofevents = "[" + events[0].title;
-              for (let i = 1; i < events?.length; i++){
-                titlesofevents = titlesofevents + "," + events[i].title;
-              }
-              titlesofevents = titlesofevents + "]";
-              alert(JSON.stringify({"date":date, "titles":titlesofevents}));
-            }else{
-              alert(JSON.stringify({"date":date}));
-            }
-          }else{
-                  //search date in mock
-                  const everyevents = mockEvents;
-                  let haveevent = false;
-                  const dateofdate = format(new Date(date), 'MM/dd/yyyy hh:mm');
-
-                  for (let i = 0; i < everyevents.length; i++){
-                    const datei = format(new Date(everyevents[i].start), 'MM/dd/yyyy hh:mm');
-                                        
-                    if (datei === dateofdate){
-                      const titleofevent = everyevents[i].title;
-                      alert(JSON.stringify({"date": datei, "title": titleofevent}));
-                      haveevent = true;
-                    }
-                  }
-                  if (!haveevent){
-                    alert(JSON.stringify({"date": dateofdate}));
-                  }
-              
-          } 
-        };
+    if (events && events.length > 0) {
+      const titles = getEventTitles(events);
+      alert(JSON.stringify({ date, titles }));
+    } else {
+      const result = searchEventInMock(date, mockEvents);
+      alert(JSON.stringify(result));
+    }
+  };
 
   return (
     <CalendarContext.Provider
